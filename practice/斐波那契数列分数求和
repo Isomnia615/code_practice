@@ -1,0 +1,52 @@
+#include<stdio.h>
+int main()
+{  //数组记忆化迭代
+	int q[30];
+	int p[30];
+    q[0] = 2;
+	p[0] = 1;
+	for (int i = 1; i < 30; i++) {
+		p[i] = q[i - 1];
+		q[i] = q[i - 1] + p[i - 1];
+	}
+	double frac[30];
+	for (int i = 0; i < 30; i++) {
+		frac[i] = (double)q[i] / p[i];//要先将一个变量转换为浮点数再做除法，而不是将两个整型变量做除法之后转为浮点
+	}
+	int term;
+	scanf_s("%d",&term);
+	double sum = 0;
+	for (int i = 0; i < term; i++) {
+		sum += frac[i];
+	}
+	printf("%.4lf", sum);
+
+	return 0;
+}
+
+
+#include<stdio.h>
+int main()
+{  //暂时值存储迭代
+	int term;
+    scanf_s("%d",term);
+    int q,p;
+    double sum=0;
+    if(term==1)
+    {
+        q=2;
+        p=1;
+    }
+        int q_prev=2,p_prev=1;
+
+    for(int i=2;i<=term,i++)
+    {
+        int q_cur=q_prev+p_prev;
+        int p_cur=q_prev;
+        sum+=(double)q_cur/p_cur;
+        q_prev=q_cur;
+        p_prev=p_cur;
+    }
+    printf("%lf",sum);
+	return 0;
+}

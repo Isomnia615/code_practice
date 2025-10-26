@@ -1,0 +1,42 @@
+//给定两个非负整数a,b,以及一个整数 index(0 ≤ index),交换 a 和 b 在第 index 位上的数字（即该位上的数字）
+//其他位保持原样。请实现 getDigit 和 setDigit 这两个函数。
+//约定:从最低位开始计数,0 表示个位,1 表示十位，依次类推。比如：
+//a = 1234,b = 5678,index = 0 时,交换个位:a 的个位为 4,b 的个位为 8,其它位保持原样。
+#include<stdio.h>
+
+int getDigit(int x,int index)
+{
+    for(int i=0;i<index;i++)
+    {
+        x/=10;
+    }
+    return x%10;
+}
+
+int setDigit(int m,int index,int digit)
+{
+    int power=1;
+    for(int i=0;i<index;i++){
+       power*=10;
+    }
+    int current=(m/power)%10;
+    return m+(digit-current)*power;
+}
+
+int main()
+{
+    int a,b,index,digit1,digit2;
+    scanf("%d %d %d",&a,&b,&index);
+    digit1=getDigit(a,index);
+    digit2=getDigit(b,index);
+
+    int new_a=setDigit(a,index,digit2);
+    int new_b=setDigit(b,index,digit1);
+
+    printf("%d %d\n",new_a,new_b);
+
+
+
+
+    return 0;
+}

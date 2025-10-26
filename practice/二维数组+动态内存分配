@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int get_max(int n, int a[1000000][1000000], int m);
+//函数形参中传入数组实际上是传入数组的首地址，在函数中可以更改数组中的数据
+
+int get_max(int n, int a[1000000][1000000], int m)
+{
+    int index = m;//储存最大值序号
+    int max = a[0][0];
+        for (int j = 0; j < m; j++)
+        {
+            if (a[n][j] > max)
+            {
+                max = a[n][j];
+                index = j + 1;
+            }
+        }
+        return  index;
+}
+
+int get_less(int n, int** a,int max)//0 1 0 3 2
+{
+    int count = 0;
+    for (int j = 0; j < max-1; j++)
+    {
+        if (a[n][j] < max&&a[n][j]!=0) {
+            count++;
+        }
+    }
+    return count;
+}
+
+
+int main()
+{
+    int n, m;
+    scanf_s("%d %d", &n, &m);
+
+    int** intensity=(int**)malloc(n*sizeof(int));//分配堆上内存
+    if (intensity == NULL)
+    {
+        return -1;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        intensity[i] = (int*)malloc(m * sizeof(int));
+        if (intensity[i] == NULL)
+        {
+            return -1;
+        }
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++) {
+            scanf_s("%d", &intensity[i][j]);
+            
+        }
+
+    }
+
+    int max[1000000];
+    int result[1000000];
+
+    for (int i = 0; i < n; i++)
+    {
+        max[i] = get_max(i, intensity, m);
+        result[i] = get_less(i, intensity, max[i]);
+        printf("%d %d\n", max[i], result[i]);
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        free(intensity[i]);
+    }
+    free(intensity);
+
+    return 0;
+}
